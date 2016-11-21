@@ -1,0 +1,68 @@
+
+{% load staticfiles %}
+
+<script>
+    imprimir_boletines = function(){
+        form = document.getElementById('imprimir_boletines');
+        form.submit()
+    }
+</script>
+
+<html>
+    <head>
+	    <link rel="stylesheet" href="{% static 'css/estilo_application.css' %}">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+       
+    </head>
+    <body>
+       <div id="agrupar">
+        <header class="col-md-12" id="header-page">
+            <div class="col-sm-3">
+				<img src="{{STATIC_URL}}images/logo.png" width=125px height="70px">
+			</div>
+			<div class="col-sm-9 hidden-xs">
+				<div class="col-sm-8">
+				    <div class="pull-right" id="nombreColegio"><h1>{{nombre_institucion}}</h1></div>
+				</div>
+				<div class="col-sm-4">
+                    <div class="pull-right" id="logonotas_app"><img src= "{{STATIC_URL}}images/sistema.png"></div>
+                </div>
+			</div>
+        </header>
+        <nav style="margin-top: 70px;background-color:#222222;">
+            <ul class = "nav nav-tabs">
+              <li role= "presentation" ><a  href= "/materias" > Inicio </a></li>
+              <li role= "presentation" ><a  href= "/estadisticas" > Estadisticas</a></li>
+              <li role= "presentation" ><a  href= "/manual" > Ir al manual</a></li>
+            <li class="dropdown pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{STATIC_URL}}/images/avatar.jpg" width=25 , hight=25 class="profile-image img-circle"> Hola {{user.first_name}} ! <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {% if user.is_superuser %}
+                        <li><a href="/imprimir/boletines" class="btn btn-success"></i> Ver progreso</a></li>
+                    <form id="imprimir_boletines" action="/imprimir/boletines" method="post">
+                       {% csrf_token %}
+                    </form>
+                    <li class="divider"></li>
+                    {% endif %}
+                    <li><a href="/change_password"><i class="fa fa-cog"></i> Reiniciar contraseña</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
+                </ul>
+            </li>
+            </ul>
+
+        </nav>
+
+    </div>
+            {% block login_content %}
+
+            {% endblock %}
+
+        <div class="col-md-12" id="footer-page">
+            <span>Desarrollado por Colegio Florentino Ameghino | 2015</span>
+        </div>
+    </body>
+</html>

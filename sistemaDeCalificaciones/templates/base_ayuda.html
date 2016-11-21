@@ -1,0 +1,36 @@
+
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/estilo_application.css' %}">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+    
+    </head> <!--esto es el banner GRANDE-->
+    <body>
+       <div id="agrupar">
+        <header class="col-md-12" id="{% block id_header %}{% endblock %}">
+            <div class="col-sm-3">
+             <a href="materias"><img src="{{STATIC_URL}}images/logo.png" width=125px height="70px"></a>
+            </div>
+            <div class="col-sm-9 hidden-xs">
+                <div class="col-sm-8">
+                    <div class="pull-right" id="nombreColegio"><h1>{{nombre_institucion}}</h1></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="pull-right" id="logonotas_app"><img src= "{{STATIC_URL}}images/sistema.png"></div>
+                </div>
+            </div>
+        </header> <!--BANNER GRANDE-->
+
+            {% block contenido_ayuda %}
+
+            {% endblock %}
+
+
+        <div class="col-md-12" id="{% block id_footer %}{% endblock %}">
+            <span>Desarrollado por Colegio Florentino Ameghino | 2015</span>
+        </div>
+    </body>
+</html>

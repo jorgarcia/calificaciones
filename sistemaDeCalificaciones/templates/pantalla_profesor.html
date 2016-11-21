@@ -1,0 +1,81 @@
+##{% load bootstrap3 %} {% bootstrap_css %} {% bootstrap_javascript %}
+<head>
+    <link rel="stylesheet" href="{{STATIC_URL}}css/estilo_application.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/font-awesome/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+
+       
+</head>
+<div id="agrupar">
+        <header class="col-md-12" id="header-page">
+            <div class="col-sm-3">
+                <img src="{{STATIC_URL}}images/logo.png" width=125px height="70px">
+            </div>
+            <div class="col-sm-9 hidden-xs">
+                <div class="col-sm-8">
+                    <div class="pull-right" id="nombreColegio"><h1>{{nombre_institucion}}</h1></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="pull-right" id="logonotas_app"><img src= "{{STATIC_URL}}images/sistema.png"></div>
+                </div>
+            </div>
+        </header>
+        <nav style="margin-top: 70px;background-color:#222222;">
+            <ul class = "nav nav-tabs">
+              <li role= "presentation" ><a  href= "#" > Inicio </a></li>
+              <li role= "presentation" ><a  href= "#" > Estadisticas</a></li>
+            <li class="dropdown pull-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{STATIC_URL}}/images/avatar.jpg" width=25 , hight=25 class="profile-image img-circle"> Hola {{user.username}} ! <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-cog"></i> Perfil</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
+                </ul>
+            </li>
+            </ul>
+
+        </nav>
+ 
+    
+        <div class="contenido col-md-3">
+            <h1> Mis cursos </h1>
+        </div>
+
+
+        <div class="col-md-8 col-md-offset-2">
+
+            <table class="table table-hover table-bordered">
+                    <tr>
+                        <th rowspan="2" style="">Asignatura</th>
+                        <th rowspan="2" >Año</th>
+                        <th colspan="3">Estado</th>
+                        <th rowspan="2">Acciones</th>
+                    </tr>
+                    <tr>
+                        <th>1ro</th>
+                        <th>2do</th>
+                        <th>3ro</th>
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>Lengua</td>
+                        <td>2do</td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-clock-o"></i></td>
+                        <td><button type="button" class="btn btn-primary">Acceder al curso</button> </td>
+                    </tr>
+                </tbody>
+        </table>
+
+
+
+        </div>
+
+        <div class="col-md-12" id="footer-page">
+                <span>Desarrollado por Colegio Florentino Ameghino | 2015</span>
+        </div>
+
+</div>

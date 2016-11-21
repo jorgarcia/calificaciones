@@ -1,0 +1,286 @@
+#header-page{
+    background-color: #1D87B1;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+#footer-page{
+    background-color: #1D87B1;
+    height: 30px;
+    width: 100%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: black;
+    position: fixed;
+    bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    text-align: center;
+}
+
+#wrapper {
+	margin-top: 80px;
+ 	margin-bottom: 80px;
+ 	padding-top: 150px;
+}
+
+#form-signin-heading{
+    font-size: 30px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+#information-reset-password{
+    text-align: center;
+    position:relative;
+    padding-top: 250px;
+    font-size: 30px;
+}
+
+#logonotas_app{
+    padding-top: 10px;
+}
+
+#nombreColegio {
+	font: 100% sans-serif;
+	font-family:'Yanone Kaffeesatz', sans-serif;
+	padding-left: 30%;
+	padding-bottom: 0%;
+
+}
+.avatar{
+
+ position: absolute; 
+  top: 0px; 
+  right: 5px; /*Pixeles a la izquierda de su posición natural*/
+}
+
+}
+
+.usuario {
+
+	font: 30% sans-serif;
+	font-family:'Yanone Kaffeesatz', sans-serif;
+	padding-left: 30%;
+	padding-bottom: 0%;
+    
+}
+
+/* estilo del banner */
+
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+
+header{
+  background-color: #1D87B1;
+  border: 1px solid #000000;
+}
+
+nav{
+  background-color: black;
+  float:bottom;
+    clear:both;
+}
+
+#notas{
+  float: right;
+}
+
+#titulo{
+  
+  padding-left: 10%;
+}
+
+#img-sistema-de{
+  float: right;
+}
+
+#texto{
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  color: black;
+  font-size: 45px;
+}
+
+#subtexto{
+  font-family: cursive;
+}
+
+table tr:hover {
+  background-color: #58ACFA;
+  cursor: pointer;
+}
+
+#filtro{
+  
+  width: 24%;
+  margin-bottom: 10px;
+
+}
+
+#achicarDiv{
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-size: 27px;
+  float:left; 
+  width: 20%;
+
+}
+
+#achicarCampo{
+
+width: 20%;
+margin-bottom: 10px;
+font-size: 30px;
+
+}
+
+#tipografiaFiltroAlumno{
+font-family: 'Yanone Kaffeesatz', sans-serif;
+font-size: 27px;
+
+}
+
+#bajarDiv{
+margin-bottom: 10px;
+font-size: 30px;
+margin-top: 200px;
+
+}
+
+#imagen_del_chico{
+
+margin-bottom: 100px;
+font-size: 50px;
+float:left;
+
+}
+
+
+.tituloPrincipal{
+  text-align: center;
+}
+
+#preguntas{
+margin-bottom: 50px;
+font-size: 50px;
+float:left;
+}
+
+
+#esquineroVerde{
+position:absolute;
+top:-128;
+margin-left:1010px;
+}
+
+.color_verdeOscuro{
+  background-color:#2A7C0A
+}
+
+.color_verdeClaro{
+  background-color:#6FAE75
+}
+
+.color_rojoOscuro{
+  background-color:#C92929
+}
+
+.color_rojoClaro{
+  background-color:#FA6666
+}
+
+#footer-page-red{
+    background-color: #E13D3D;
+    height: 30px;
+    width: 100%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: black;
+    position: fixed;
+    bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    text-align: center;
+}
+
+#header-page-red{
+    background-color: #970303;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.espacio{
+  padding-top:10px;
+}
+
+#header-page-green{
+    background-color: #0B7312;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+#footer-page-green{
+    background-color: #88C08C;
+    height: 30px;
+    width: 100%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: black;
+    position: fixed;
+    bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    text-align: center;
+}
+
+#botonDescarga{
+float: right;
+margin-top:-100px;
+
+}
+
+#bannerEstadistica{
+float: left;
+margin-top:5px;
+margin-left:400px;
+}
+
+#bannerEstadistica2{
+float: left;
+margin-top:-500px;
+margin-left:900px;
+}
+
+#bannerEstadistica3{
+float: left;
+margin-top:-500px;
+margin-left:-50px;
+}

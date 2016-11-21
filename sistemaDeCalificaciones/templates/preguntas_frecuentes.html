@@ -1,0 +1,58 @@
+{% extends 'base_ayuda.html' %}
+
+
+{% block id_header %}header-page-red{% endblock %}
+
+{% block contenido_ayuda %}
+ <div id="bajarDiv" class="col-md-12"> <!--imagen del doctor y cajas de preguntas-->
+
+        <div id="doctor1" class="col-md-5">
+            <img src="{{STATIC_URL}}images/lechuza.jpg" width=400px height="400px">
+        </div>
+
+        <div id="cajas" class="col-md-7"> <!--cajas de preguntas-->
+
+           {% for pregunta in preguntas%}
+           
+               {% if forloop.counter|esPar %}
+                         <div class="col-md-8" style="padding-top:10;">
+                                <button class="btn btn-lg dropdown-toggle color_rojoOscuro"
+                                        type="button" data-toggle="dropdown">
+                                        {{pregunta.titulo}}<span class="caret"></span>
+                                </button>
+ 
+                            <ul class="dropdown-menu">
+                                {{pregunta.respuesta}}
+                            </ul>
+                        </div>
+
+               {% else %}
+                        <div class="col-md-8" style="padding-top:10;">
+                            <button class="btn btn-lg dropdown-toggle color_rojoClaro"
+                             type="button" data-toggle="dropdown">
+                             {{pregunta.titulo}}<span class="caret"></span>
+                            </button>
+ 
+                            <ul class="dropdown-menu">
+                                 {{pregunta.respuesta}}
+                            </ul>
+                        </div>
+
+               {% endif %}
+
+            {% endfor %}
+           
+                              
+
+        </div>
+         <div style="margin-top: 350px; margin-left: 1200px;" >
+        <a href="manual"><img src="{{STATIC_URL}}images/flecha_roja.png" width=100px height="50px" ></a>
+        </div>
+
+        
+ </div>   
+
+    </div>
+{% endblock %}
+
+{% block id_footer %}footer-page-red{% endblock %}

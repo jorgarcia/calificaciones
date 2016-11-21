@@ -1,0 +1,53 @@
+{% extends 'base_ayuda.html' %}
+
+ 
+{% block id_header %}header-page-green{% endblock %}
+
+{% block contenido_ayuda %}
+ <div id="bajarDiv" class="col-md-12"> <!--imagen del doctor y cajas de preguntas-->
+    
+        <div id="cajas" class="col-md-8"> <!--cajas de preguntas-->
+
+        {% for pregunta in preguntas%}
+          {% if forloop.counter|esPar %}
+                         <div class="col-md-8" style="padding-top:10;">
+                                <button class="btn btn-lg dropdown-toggle color_verdeOscuro"
+                                        type="button" data-toggle="dropdown">
+                                        {{pregunta.titulo}}<span class="caret"></span>
+                                </button>
+ 
+                            <ul class="dropdown-menu">
+                                {{pregunta.respuesta}}
+                            </ul>
+                        </div>
+
+               {% else %}
+                        <div class="col-md-8" style="padding-top:10;">
+                            <button class="btn btn-lg dropdown-toggle color_verdeClaro"
+                             type="button" data-toggle="dropdown">
+                             {{pregunta.titulo}}<span class="caret"></span>
+                            </button>
+ 
+                            <ul class="dropdown-menu">
+                                 {{pregunta.respuesta}}
+                            </ul>
+                        </div>
+
+
+               {% endif %}
+            {% endfor %}
+         <div id="esquineroVerde" class="col-md-4">
+            <img src="{{STATIC_URL}}images/pantalla_verde.png" width=300px height="300px">
+
+        </div>
+
+        </div>
+       <div style="margin-top: 350px; margin-left: 1200px;" >
+        <a href="manual"><img src="{{STATIC_URL}}images/flecha_verde.png" width=100px height="50px" ></a>
+        </div>
+
+
+ </div>   
+{% endblock %}
+
+{% block id_footer %}footer-page-green{% endblock %}

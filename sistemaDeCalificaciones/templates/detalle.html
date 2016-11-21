@@ -1,0 +1,30 @@
+{% extends 'base_application.html' %}
+
+
+{% block login_content %}
+    <div class="col-md-3">
+        <h1> Ver detalle | {{seccion}} </h1>
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th rowspan="2" style="text-align:center;padding-top:30px;">Curso</th>
+                <th rowspan="2" style="text-align:center;padding-top:30px;">¿Habilitado para imprimir?</th>
+                <th rowspan="" style="text-align:center;padding-top:30px;">Acciones</th>
+            </tr>
+            <tbody>
+                {% for materia in materias %}
+                <tr>
+                    <td style="text-align:center;">{{materia}}</td>
+                    {% if materia|materia_para_imprimir %}
+                        <td style="text-align:center;color:green;"><i class="fa fa-check"></i></td>
+                    {% else %}
+                        <td style="text-align:center;color:red;"><i class="fa fa-close"></i></td>
+                    {% endif %}
+                    <td style="text-align:center;"><a href="/cursos/{{materia.pk}}/3" class="btn btn-info" >Ver Curso</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base_application.html' %}
+
+
+{% block login_content %}
+
+<div class="contenido col-md-12">
+    <h1> Notas </h1> <h4> de {{materia.nombre}}</h4>
+
+    <h5 style="color:red;">(No Editable)</h5>
+
+
+    <ul class="nav nav-tabs">
+      <li><a href="/cursos/{{materia.pk}}/1">Primer Trimestre</a></li>
+      <li><a href="/cursos/{{materia.pk}}/2">Segundo Trimestre</a></li>
+      <li><a href="/cursos/{{materia.pk}}/3">Tercer Trimestre</a></li>
+      <li><a href="/anual/{{materia.pk}}">Trimestres y ANUAL</a></li>
+      <li><a href="/"><span class="text-danger">Volver</span></a></li>
+    </ul>
+
+
+    <div class="col-md-10 col-md-offset-1" style="overflow-x:scroll;">
+      <table class="table">
+            <thead>
+                <tr style="font-weight:bold;">
+                    <td rowspan="2" class="header-tabla" >Apellido</td>
+                    <td rowspan="2" class="header-tabla" >Nombre</td>
+                    <td rowspan="2" class="header-tabla" >1er trimestre</td>
+                    <td rowspan="2" class="header-tabla" >2do trimestre</td>
+                    <td rowspan="2" class="header-tabla" >3er trimestre</td>
+                    <td rowspan="2" class="header-tabla" >Nota Anual</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for alumno in alumnos %}
+                    <tr>
+                        <td>{{alumno.apellido}}</td>
+                        <td>{{alumno.primer_nombre}}</td>
+                        <td>{{alumno|prom_primer_trimestre:materia}}</td>
+                        <td>{{alumno|prom_segundo_trimestre:materia}}</td>
+                        <td>{{alumno|prom_tercer_trimestre:materia}}</td>
+                        {% if alumno|prom_anual:materia < 7 %}
+                            <td class="text-danger">{{alumno|prom_anual:materia}}</td>
+                        {% else %}
+                            <td class="text-success">{{alumno|prom_anual:materia}}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

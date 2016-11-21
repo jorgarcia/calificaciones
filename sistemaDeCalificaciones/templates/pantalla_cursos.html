@@ -1,0 +1,281 @@
+{% extends 'base_application.html' %}
+
+
+{% block login_content %}
+<script xmlns="http://www.w3.org/1999/html">
+
+    exportar_notas = function(){
+        form_exportar = document.getElementById('form_exportar');
+        form_exportar.submit();
+    }
+
+    submitForms = function(){
+
+        /////////////////// NOTAS DE LOS ALUMNOS ////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+
+        // obtengo los forms con las notas de los alumnos
+        forms = document.getElementsByClassName("form-nota");
+
+        // genero dos inputs: el primero contiene las pk de los examen_alumno y el segundo ls notas de los mismos.
+        var examenes_alumno = document.createElement("input");
+        examenes_alumno.type = "hidden";
+        examenes_alumno.name = "examenes_alumno";
+        var lista_examenes_alumno = [];
+
+        var notas = document.createElement("input");
+        notas.type = "hidden";
+        notas.name = "notas";
+        var lista_notas = [];
+
+        // para saber si todos los forms son validos
+        var forms_validos = true;
+
+        Array.prototype.forEach.call(forms, function(form) {
+            lista_examenes_alumno.push(form['examen_alumno'].value);
+            lista_notas.push(form['nota'].value);
+            form_valido = (form['nota'].value >= 0 && form['nota'].value <= 10);
+            forms_validos = forms_validos && form_valido;
+            if(!form_valido){
+                form['nota'].style.backgroundColor = '#DF4D4D';
+            }
+            else{
+                form['nota'].style.backgroundColor = 'white';
+            }
+        });
+
+        ////////////////// SUBMIT DEL FORMUMARIO PRINCIPAL /////////////
+        ////////////////////////////////////////////////////////////////
+
+        if(forms_validos){
+            examenes_alumno.value = lista_examenes_alumno;
+            notas.value = lista_notas;
+            // agrego los inputs al form y hago submit
+            var form = document.getElementById("form-principal");
+            form.appendChild(examenes_alumno);
+            form.appendChild(notas);
+            form.submit();
+        }
+        else{
+            alert("Notas negativas o mayores a 10, revise por favor.")
+        }
+
+    }
+</script>
+
+<div class="contenido col-md-12">
+    <h1> Notas </h1> <h4> de {{materia.nombre}} | {{trimestre}}° trimestre</h4>
+    {% if editable %}
+        <h5 style="color:green;">(Editable)</h5>
+    {% else %}
+        <h5 style="color:red;">(No Editable)</h5>
+    {% endif %}
+
+    <ul class="nav nav-tabs">
+      <li><a href="/cursos/{{materia.pk}}/1">Primer Trimestre</a></li>
+      <li><a href="/cursos/{{materia.pk}}/2">Segundo Trimestre</a></li>
+      <li><a href="/cursos/{{materia.pk}}/3">Tercer Trimestre</a></li>
+        <li><a href="/anual/{{materia.pk}}">Trimestres y ANUAL</a></li>
+      <li> <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          Opciones <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+           <li><a href="#" onclick="submitForms()" data-toggle="modal" data-target="#modalProgreso"><span class="text-success">Guardar y volver</span></a></li>
+           <li><a href="/"><span class="text-danger">Volver sin guardar</span></a></li>
+           <li>
+               {% if examenes|length > 0 %}
+                    <a href="#" onclick="exportar_notas()"><span class="text-primary">Exportar notas</span></a>
+               {% else %}
+                    <a href="#"><span class="text-primary">Exportar notas</span></a>
+               {% endif %}
+               <form id="form_exportar" action="/exportar/curso" method="post">
+                    {% csrf_token %}
+                    <input name="materia" type="text" value={{materia.pk}} hidden="hidden"/>
+                    <input name="trimestre" type="text" value={{trimestre}} hidden="hidden"/>
+                </form>
+           </li>
+        </ul>
+        </li>
+    </ul>
+
+
+    <div class="col-md-10 col-md-offset-1" style="overflow-x:scroll;">
+      <table class="table">
+            <thead>
+                <tr style="font-weight:bold;">
+                    <td rowspan="2" class="header-tabla" >Apellido</td>
+                    <td rowspan="2" class="header-tabla" >Nombre</td>
+                    {% for examen in examenes|ordenarPorFecha %}
+                        <td rowspan="2" class="header-tabla">
+                            {% if examen.es_integrador %}
+                                {{examen.nombre}} <br><span style="color:blue;">(Integrador)</span>
+                            {% else %}
+                                {{examen.nombre}}
+                            {% endif %}
+                            <form action="/examen/borrar" method="post">
+                                {% csrf_token %}
+                                <input name="examen_pk" type="number" hidden="hidden" value={{examen.pk}}>
+                                {% if editable %}
+                                    <button class="btn btn-danger btn-xs" type="submit" data-toggle="tooltip" title="Borrar examen y todas las notas de alumnos relacionadas con este examen">
+                                        Borrar
+                                    </button>
+                                {% else %}
+                                    <button disabled class="btn btn-danger btn-xs" type="submit" data-toggle="tooltip" title="Borrar examen y todas las notas de alumnos relacionadas con este examen">
+                                        Borrar
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </td>
+                    {% endfor %}
+
+                    {% if trimestre == '3' and examenes|hay_integradora%}
+                        <td>PROMEDIO <br>(sin integradora)</td>
+
+                        {% if examenes|hay_integradora %}
+                            <td>PROMEDIO <br>(con integradora)</td>
+                        {% endif %}
+
+                    {% else %}
+                        <td>PROMEDIO</td>
+                    {% endif %}
+
+                    {% if editable %}
+                        <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Nueva nota</button> </td>
+                    {% else %}
+                        <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" disabled>Nueva nota</button> </td>
+                    {% endif %}
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                    <tr>
+                        <td>{{alumno.apellido}}</td>
+                        <td>{{alumno.primer_nombre}}</td>
+                            {% for nota in examenes|get_notas_de:alumno %}
+                                <td>
+                                    <form class="form-nota" action="/examen_alumno/" method="post">
+                                        {% csrf_token %}
+                                        {% if nota.nota %}
+                                            <input style="width:40px;" name="nota" type="int" value="{{nota.nota}}" maxlength="2"
+                                                    {% if editable %}
+                                                        />
+                                                    {% else %}
+                                                        disabled />
+                                                    {% endif %}
+                                        {% else %}
+                                            <input style="width:40px;" name="nota" type="int" value="" maxlength="2"
+                                                    {% if editable %}
+                                                        />
+                                                    {% else %}
+                                                        disabled />
+                                                    {% endif %}
+                                        {% endif %}
+                                        <input name="examen_alumno" type="int" value="{{nota.pk}}" hidden="hidden"/>
+                                    </form>
+                                </td>
+                            {% endfor %}
+
+                            {% if trimestre == '3' %}
+                                {% if examenes|hay_integradora %}
+                                    {% if alumno|promedio_alumno_3_notas:examenes >= 7 %}
+                                        <td style="color:green;">{{alumno|promedio_alumno_3_notas:examenes}}</td>
+                                    {% else %}
+                                        <td style="color:red;">{{alumno|promedio_alumno_3_notas:examenes}}</td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if alumno|promedio_alumno:examenes >= 7 %}
+                                <td style="color:green;">{{alumno|promedio_alumno:examenes}}</td>
+                            {% else %}
+                                <td style="color:red;">{{alumno|promedio_alumno:examenes}}</td>
+                            {% endif %}
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+          <!-- Formulario que se submitea al enviar todas las notas -->
+            <form id="form-principal" action="/examenes_alumno/" method="post">
+                {% csrf_token %}
+            </form>
+
+        </table>
+
+    </div>
+</div>
+
+<div class="modal hide" id="contactModal">
+<form class="well" method="post" action="/contact/edit/{{ item.id }}">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Editing Contact</h3>
+  </div>
+  <div class="modal-body">
+       {% csrf_token %}
+       {{form.as_p}}
+  </div>
+  <div class="modal-footer">
+       <input class="btn btn-primary" type="submit" value="Save" />
+       <input name="cancel" class="btn" type="submit" value="Cancel"/>
+  </div>
+</form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Nueva nota</h4>
+    </div>
+    <div class="modal-body">
+        <form action="/examen/nuevo" method="post">
+            {% csrf_token %}
+            <label>Ingrese el nombre del examen</label>
+            <input type="text" class="form-control" name="nombre" placeholder="ej: Evaluación escrita" required="" maxlength="30"/><br>
+            <label>Ingrese la fecha del examen</label>
+            <input type="date" class="form-control" name="fecha" required="" placeholder="aaaa-mm-dd"/><br>
+            <label>Ingrese una observación (opcional)</label>
+            <textarea type="text" class="form-control" name="observacion"/></textarea><br>
+            <label>¿Es integradora?</label>
+            <input type="checkbox" name="es_integrador"/><br>
+
+            <input name="materia" type="text" value={{materia.pk}} hidden="hidden"/>
+            <input name="trimestre" type="text" value={{trimestre}} hidden="hidden"/>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-default">Guardar</button>
+    </div>
+      </form>
+  </div>
+
+</div>
+</div>
+
+
+<!-- Modal Progreso -->
+<div class="modal fade" id="modalProgreso" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Guardando notas</h4>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-warning" role="alert">
+            Guardando notas ... <br><br>
+            Calculando promedios ...
+        </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}

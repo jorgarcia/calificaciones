@@ -1,0 +1,88 @@
+
+#header-login{
+    background-color: #1D87B1;
+    height: 150px;
+    width: 100%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+}
+
+#footer-page{
+    background-color: #1D87B1;
+    height: 30px;
+    width: 100%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: black;
+    position: fixed;
+    bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+    text-align: center;
+}
+
+#wrapper {
+	margin-top: 80px;
+ 	margin-bottom: 80px;
+ 	padding-top: 150px;
+}
+
+#form-signin-heading{
+    font-size: 30px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+#information-reset-password{
+    text-align: center;
+    position:relative;
+    padding-top: 250px;
+    font-size: 30px;
+}
+
+.nombreColegio {
+	font: 350% sans-serif;
+	font-family:'Yanone Kaffeesatz', sans-serif;
+}
+
+.header-tabla{
+    padding-top:30px;
+}
+
+.colegio {
+	padding-left: 95%;
+	padding-bottom: 50%;
+
+}
+
+.div1.1 {
+padding-left: 30%;
+}
+
+.div1.2 {
+padding-left:75%;
+}
+
+#sistemaDeNotas {
+padding-left: 75%;
+}
+
+.chicoConsulta {
+
+width:28%; 
+margin-top:-260px;
+
+}
